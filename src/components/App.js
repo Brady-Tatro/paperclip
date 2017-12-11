@@ -15,6 +15,7 @@ class App extends React.Component {
             <Download
             number={this.state.number}
             byte={this.state.byte}
+            currentUpgrade={this.state.currentUpgrade}
             />
          </div>
       );

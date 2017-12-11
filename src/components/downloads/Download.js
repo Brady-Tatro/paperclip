@@ -6,9 +6,21 @@ class Download extends Component {
     super(props);
     this.state = {
       number: 0,
-      byte: 0
+      byte: 0,
+      currentUpgrade: 'bit'
     }
+    this.downloadInfo = this.downloadInfo.bind(this);
+    this.upgradeDownload = this.upgradeDownload.bind(this);
     this.makeBit = this.makeBit.bind(this);
+    this.makeByte = this.makeByte.bind(this);
+  }
+
+  downloadInfo(){
+    if(this.state.currentUpgrade == 'bit'){
+      this.makeBit();
+    } else if(this.state.currentUpgrade == 'byte'){
+      this.makeByte();
+    }
   }
 
   makeBit(){
@@ -18,7 +30,21 @@ class Download extends Component {
     }
   }
 
+  makeByte(){
+    this.setState({byte: this.state.byte + 1})
+  }
+  
+  upgradeDownload(){
+    this.setState({currentUpgrade: 'byte'})
+  }
+
   render(){
+
+    let byteUpdgrade;
+    if(this.state.byte >= 2 && this.state.currentUpgrade == 'bit'){
+      byteUpdgrade = <button onClick={this.upgradeDownload}> Dank </button>
+    }
+
     return(
       <div>
         Bits: {this.state.number}
@@ -26,10 +52,11 @@ class Download extends Component {
           Bytes: {this.state.byte}
         </div>
         <div>
-          <button onClick={this.makeBit}>
-          download bit
+          <button onClick={this.downloadInfo}>
+            Download
           </button>
         </div>
+        {byteUpdgrade}
       </div>
     )
   }
